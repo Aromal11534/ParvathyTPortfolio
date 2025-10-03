@@ -12,14 +12,26 @@ body {
 
 /* Header and Navigation */
 header {
-    background: #ffffff;
-    color: #333;
-    padding: 1rem 0;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    padding: 1rem 0;
+    color: #333;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: -1;
 }
 
 nav {
@@ -36,7 +48,7 @@ nav .logo {
     color: #2c3e50;
 }
 
-nav ul {
+.nav-links {
     list-style: none;
     display: flex;
     gap: 30px;
@@ -44,15 +56,27 @@ nav ul {
     padding: 0;
 }
 
-nav ul li a {
+.nav-links li a {
     text-decoration: none;
     color: #34495e;
     font-weight: 600;
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
+.nav-links li a:hover {
     color: #3498db;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger .line {
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
 }
 
 /* Hero Section */
@@ -228,12 +252,30 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    nav ul {
-        display: none; /* Simple responsive menu, can be improved with JS */
+    .nav-links {
+        position: absolute;
+        right: 0px;
+        height: 92vh;
+        top: 8vh;
+        background-color: #2c3e50;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+    }
+
+    .nav-links.nav-active {
+        transform: translateX(0%);
+    }
+
+    .hamburger {
+        display: block;
     }
 
     .hero-text h1 {
-        font-size: 3.5rem;
+        font-size: 3rem;
     }
 
     #about, #contact, #hobbies {
